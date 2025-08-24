@@ -1,0 +1,37 @@
+{% macro weather_condition_to_emoji(condition="default") %}
+  {% set emoji_map = {
+    'sunny': '☀️',
+    'clear-night': '🌃',
+    'partlycloudy': '🌤️',
+    'cloudy': '☁️',
+    'rainy': '🌧️',
+    'pouring': '☔',
+    'lightning': '⚡',
+    'lightning-rainy': '⛈️',
+    'snowy': '🌨️',
+    'snowy-rainy': '🌧️❄️',
+    'hail': '🥶🌧️',
+    'fog': '🌫️',
+    'windy': '💨',
+    'windy-variant': '🌬️',
+    'exceptional': '❗❗❗',
+    'default': '❓'
+  } %}
+  {{ emoji_map.get(condition, emoji_map['default']) }}
+{% endmacro %}
+
+{%- macro format_day_forecast(forecast_data, day_name) -%} 
+* \* {{ day_name }}:* 
+{% if forecast_data.condition %} ☁️ Condición: {{ forecast_data.condition | replace('-', ' ') }}{% endif %}
+{% if forecast_data.temperature is defined %} 🌡️ Temperatura Máxima: {{forecast_data.temperature | replace('.', '\.') }} °C{% endif%}
+{% if forecast_data.templow is defined %} 🥶 Temperatura Mínima: {{forecast_data.templow | replace('.', '\.') }} °C{% endif %}
+{% if forecast_data.precipitation_probability is defined %} 🌧️ Probabilidad de Lluvia: {{ forecast_data.precipitation_probability }} %{% endif %}
+{%- endmacro -%}
+
+{%- macro forecast_three_days(weather_forecast) -%} 
+{% if weather_forecast and weather_forecast['weather.aemet'] and weather_forecast['weather.aemet'].forecast -%} 
+{% if weather_forecast['weather.aemet'].forecast[1] %}{{- format_day_forecast(weather_forecast['weather.aemet'].forecast[0], 'Tiempo para hoy') }}{% endif %}
+{% if weather_forecast['weather.aemet'].forecast[1] %}{{ format_day_forecast(weather_forecast['weather.aemet'].forecast[1], 'Tiempo para mañana') }}{% endif %}
+{% if weather_forecast['weather.aemet'].forecast[2] %}{{ format_day_forecast(weather_forecast['weather.aemet'].forecast[2], 'Tiempo para pasado mañana') }}{% endif %}
+{% else %} ⚠️ No se pudo obtener la información del tiempo\. {% endif %}
+{%- endmacro -%}

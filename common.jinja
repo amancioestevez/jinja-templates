@@ -1,0 +1,9 @@
+{%- macro format_entity_value(entity_id, friendly_name) -%}
+    - {{ friendly_name }}: {{ states[entity_id].state }} {{ states[entity_id].attributes.unit_of_measurement }}
+{%- endmacro -%}
+
+{%- macro format_entity_values(items) -%}
+    {%- for entity_id, friendly_name in items() %}
+        {{ format_entity_value(entity_id, friendly_name) }}
+    {%- endfor -%}
+{%- endmacro -%}
