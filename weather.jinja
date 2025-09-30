@@ -29,9 +29,9 @@
 {%- endmacro -%}
 
 {%- macro forecast_three_days(weather_forecast) -%} 
-{% if weather_forecast and weather_forecast['weather.aemet'] and weather_forecast['weather.aemet'].forecast -%} 
-{% if weather_forecast['weather.aemet'].forecast[1] %}{{- format_day_forecast(weather_forecast['weather.aemet'].forecast[0], 'Tiempo para hoy') }}{% endif %}
-{% if weather_forecast['weather.aemet'].forecast[1] %}{{ format_day_forecast(weather_forecast['weather.aemet'].forecast[1], 'Tiempo para mañana') }}{% endif %}
-{% if weather_forecast['weather.aemet'].forecast[2] %}{{ format_day_forecast(weather_forecast['weather.aemet'].forecast[2], 'Tiempo para pasado mañana') }}{% endif %}
+{% if weather_forecast and weather_forecast['weather.meteo'] and weather_forecast['weather.meteo'].forecast -%}
+{% if weather_forecast['weather.meteo'].forecast[1] %}{{- format_day_forecast(weather_forecast['weather.meteo'].forecast[0], 'Tiempo para hoy') }}{% endif %}
+{% if weather_forecast['weather.meteo'].forecast[1] %}{{ format_day_forecast(weather_forecast['weather.meteo'].forecast[1], 'Tiempo para mañana') }}{% endif %}
+{% if weather_forecast['weather.meteo'].forecast[2] %}{{ format_day_forecast(weather_forecast['weather.meteo'].forecast[2], 'Tiempo para pasado mañana') }}{% endif %}
 {% else %} ⚠️ No se pudo obtener la información del tiempo\. {% endif %}
 {%- endmacro -%}
