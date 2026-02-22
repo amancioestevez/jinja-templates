@@ -1,14 +1,16 @@
 @Library('jenkins-shared-lib') _
 
 pipeline {
-  agent any
+  agent {
+    label 'docker-agent-client'
+  }
 
   parameters {
     booleanParam(name: 'DRY_RUN', defaultValue: false, description: 'Simulación (no copia)')
     booleanParam(name: 'MIRROR',  defaultValue: false, description: 'Modo espejo (borra extras en destino)')
     string(name: 'HA_HOST', defaultValue: '192.168.1.150', description: 'Host de Home Assistant')
     string(name: 'HA_SSH_PORT', defaultValue: '2222', description: 'Puerto SSH del add-on Terminal & SSH')
-    string(name: 'HA_CRED_ID', defaultValue: 'ha_ssh_creds', description: 'ID de la credencial SSH en Jenkins')
+    string(name: 'HA_CRED_ID', defaultValue: 'ha_jenkins', description: 'ID de la credencial SSH en Jenkins')
   }
 
   options {
@@ -64,6 +66,5 @@ ls -1 "${WORKSPACE}"/*.jinja 2>/dev/null || { echo "No se encontraron .jinja"; e
   post {
     success { script { notify.success() } }
     failure { script { notify.failure() } }
-    always  { echo "Despliegue jinja-templates finalizado." }
   }
 }
