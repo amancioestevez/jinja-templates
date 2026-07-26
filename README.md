@@ -22,15 +22,15 @@ El Jenkinsfile usa el step `haCopy.rsync`:
 
 ```groovy
 haCopy.rsync(
-  host: env.HA_HOST,
-  port: env.HA_SSH_PORT,
-  userCredentialsId: params.HA_CRED_ID,
-  srcDir: env.WORKSPACE,
-  dstDir: env.DST_DIR,
-  dryRun: params.DRY_RUN,
-  mirror: params.MIRROR,
-  include: ['*.jinja'],
-  exclude: ['*']
+        host: env.HA_HOST,
+        port: env.HA_SSH_PORT,
+        userCredentialsId: params.HA_CRED_ID,
+        srcDir: env.WORKSPACE,
+        dstDir: env.DST_DIR,
+        dryRun: params.DRY_RUN,
+        mirror: params.MIRROR,
+        include: ['*.jinja'],
+        exclude: ['*']
 )
 ```
 
