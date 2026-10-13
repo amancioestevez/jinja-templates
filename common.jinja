@@ -8,6 +8,6 @@
 
 {%- macro format_entity_values(items) -%}
     {%- for entity_id, friendly_name in items() %}
-        {{ format_entity_value(entity_id, friendly_name) }}
+{{ format_entity_value(entity_id, friendly_name) }}
     {%- endfor -%}
 {%- endmacro -%}
