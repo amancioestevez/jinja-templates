@@ -1,5 +1,9 @@
+{%- macro md2(t) -%}
+    {{- t | string | regex_replace('([_*\[\]()~`>#+\-=|{}.!\\\\])', '\\\\\\1') -}}
+{%- endmacro -%}
+
 {%- macro format_entity_value(entity_id, friendly_name) -%}
-    - {{ friendly_name }}: {{ states[entity_id].state }} {{ states[entity_id].attributes.unit_of_measurement }}
+    • {{ friendly_name }}: {{ md2(states(entity_id)) }} {{ md2(state_attr(entity_id, 'unit_of_measurement') or '') }}
 {%- endmacro -%}
 
 {%- macro format_entity_values(items) -%}
