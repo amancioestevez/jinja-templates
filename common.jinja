@@ -6,8 +6,8 @@
     • {{ friendly_name }}: {{ md2(states(entity_id)) }} {{ md2(state_attr(entity_id, 'unit_of_measurement') or '') }}
 {%- endmacro -%}
 
-{%- macro format_entity_values(items) -%}
+{%- macro format_entity_values(items, indent='') -%}
     {%- for entity_id, friendly_name in items() %}
-{{ format_entity_value(entity_id, friendly_name) }}
+{{ indent }}{{ format_entity_value(entity_id, friendly_name) }}
     {%- endfor -%}
 {%- endmacro -%}

@@ -15,7 +15,7 @@ Plantillas Jinja2 (macros reutilizables) para Home Assistant. Se despliegan en
 |---|---|
 | `md2(t)` | Escapa los caracteres reservados de MarkdownV2 de Telegram (`_*[]()~`>#+-=\|{}.!` y `\`) |
 | `format_entity_value(entity_id, friendly_name)` | Una línea `• <nombre>: <estado> <unidad>`; estado y unidad escapados con `md2` (el nombre no: pasarlo ya escapado, p. ej. `E\\.Leclerc`) |
-| `format_entity_values(items)` | Recorre `items()` (pasar `dict.items` sin llamar) y pinta una línea por entidad |
+| `format_entity_values(items, indent='')` | Recorre `items()` (pasar `dict.items` sin llamar) y pinta una línea por entidad; `indent` se antepone a cada línea (p. ej. listas bajo un título, como en `/fuel`) |
 
 Ejemplo (automatización `telegram-bot-temp`):
 
